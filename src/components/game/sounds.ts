@@ -52,5 +52,5 @@ export function playGo() {
 export function playVictory() {
   const notes = [523, 659, 784, 1047, 784, 1047];
   const times = [0, 0.15, 0.3, 0.45, 0.7, 0.85];
-  notes.forEach((f, i) => tone(f, times[i], i === notes.length - 1 ? 1.2 : 0.3, "triangle", 0.3));
+  notes.forEach((f, i) => tone(f, times[i] ?? 0, i === notes.length - 1 ? 1.2 : 0.3, "triangle", 0.3));
 }
