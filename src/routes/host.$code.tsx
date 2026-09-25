@@ -7,6 +7,7 @@ import tugOfWarPlayers from "@/assets/tug-of-war-players.png";
 import { TugOfWarArena } from "@/components/game/TugOfWarArena";
 import { useGameState } from "@/hooks/useGameState";
 import { useStartCountdown } from "@/components/game/StartCountdown";
+import { WinnerBanner } from "@/components/game/WinnerBanner";
 import { controlRoom } from "@/lib/game.functions";
 
 export const Route = createFileRoute("/host/$code")({
@@ -165,8 +166,9 @@ function HostScreen() {
               </button>
             </section>
           ) : data.status === "FINISHED" ? (
-            <section className="py-10 text-center">
-              <div className="mt-10">
+            <section className="py-6 text-center">
+              <WinnerBanner winner={data.winner} players={data.players} />
+              <div className="mt-6">
                 <TugOfWarArena ropePosition={data.ropePosition} />
               </div>
             </section>

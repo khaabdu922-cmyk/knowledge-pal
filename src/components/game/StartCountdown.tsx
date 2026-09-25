@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
+import { playGo, playTick, unlockAudio } from "./sounds";
 
 const STEPS = ["3", "2", "1", "BAŞLA!"];
 
-/** Yarışma başladığında (PLAYING'e geçiş, 1. soru) 3-2-1-BAŞLA! geri sayımı gösterir. */
+/** Yarışma başladığında (PLAYING'e geçiş, 1. soru) 3-2-1-BAŞLA! geri sayımı gösterir ve ses çalar.
+ *  Öğretmen ve oyuncu ekranları aynı durum değişikliğini aynı anda gördüğü için birlikte çalar. */
 export function useStartCountdown(status: string | undefined, qIndex: number | undefined) {
   const prev = useRef<string | undefined>(undefined);
   const [step, setStep] = useState<number | null>(null);
+
+  useEffect(() => {
+    unlockAudio();
+  }, []);
 
   useEffect(() => {
     const before = prev.current;
@@ -21,6 +27,8 @@ export function useStartCountdown(status: string | undefined, qIndex: number | u
 
   useEffect(() => {
     if (step === null) return;
+    if (step === STEPS.length - 1) playGo();
+    else playTick();
     const id = setTimeout(() => setStep(step + 1 < STEPS.length ? step + 1 : null), step === STEPS.length - 1 ? 900 : 1000);
     return () => clearTimeout(id);
   }, [step]);

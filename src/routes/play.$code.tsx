@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { useGameState } from "@/hooks/useGameState";
 import { useStartCountdown } from "@/components/game/StartCountdown";
+import { WinnerBanner } from "@/components/game/WinnerBanner";
 import { heartbeat, joinRoom, submitAnswer } from "@/lib/game.functions";
 
 export const Route = createFileRoute("/play/$code")({
@@ -146,9 +147,12 @@ function GameView({ code, playerId }: { code: string; playerId: string }) {
       (data.winner === "TEAM1" && me?.team === 1) || (data.winner === "TEAM2" && me?.team === 2);
     return (
       <Shell>
-        <h1 className="text-center text-4xl font-extrabold text-foreground">
-          {data.winner === "TIE" ? "BERABERE!" : iWon ? "🏆 KAZANDINIZ!" : "OYUN SONA ERDİ"}
-        </h1>
+        <WinnerBanner winner={data.winner} players={data.players} compact />
+        {data.winner !== "TIE" && (
+          <p className="text-center text-2xl font-extrabold text-foreground">
+            {iWon ? "SEN KAZANDIN! 🎉" : "Bir dahaki sefere! 💪"}
+          </p>
+        )}
         <p className="mt-3 text-center text-sm font-semibold text-muted-foreground">
           Halat konumu: {data.ropePosition}
         </p>
