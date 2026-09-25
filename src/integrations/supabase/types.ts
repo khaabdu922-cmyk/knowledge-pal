@@ -16,8 +16,7 @@ export type Database = {
     Tables: {
       answers: {
         Row: {
-          answer: string | null
-          answer_text: string | null
+          answer: string
           created_at: string
           id: string
           is_correct: boolean
@@ -26,8 +25,7 @@ export type Database = {
           room_id: string
         }
         Insert: {
-          answer?: string | null
-          answer_text?: string | null
+          answer: string
           created_at?: string
           id?: string
           is_correct: boolean
@@ -36,8 +34,7 @@ export type Database = {
           room_id: string
         }
         Update: {
-          answer?: string | null
-          answer_text?: string | null
+          answer?: string
           created_at?: string
           id?: string
           is_correct?: boolean
@@ -131,8 +128,7 @@ export type Database = {
       questions: {
         Row: {
           category: string
-          correct_answer: string | null
-          correct_answer_text: string | null
+          correct_answer: string
           created_at: string
           difficulty: string
           id: string
@@ -147,8 +143,7 @@ export type Database = {
         }
         Insert: {
           category?: string
-          correct_answer?: string | null
-          correct_answer_text?: string | null
+          correct_answer: string
           created_at?: string
           difficulty?: string
           id?: string
@@ -163,8 +158,7 @@ export type Database = {
         }
         Update: {
           category?: string
-          correct_answer?: string | null
-          correct_answer_text?: string | null
+          correct_answer?: string
           created_at?: string
           difficulty?: string
           id?: string
@@ -177,15 +171,7 @@ export type Database = {
           set_id?: string | null
           time_limit?: number
         }
-        Relationships: [
-          {
-            foreignKeyName: "questions_set_id_fkey"
-            columns: ["set_id"]
-            isOneToOne: false
-            referencedRelation: "question_sets"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       rooms: {
         Row: {
@@ -227,15 +213,7 @@ export type Database = {
           status?: string
           winner?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "rooms_set_id_fkey"
-            columns: ["set_id"]
-            isOneToOne: false
-            referencedRelation: "question_sets"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
